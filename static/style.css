@@ -1,0 +1,358 @@
+body {
+    background-color: #f0f2f5;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.chat-container {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#new-chat, #view-history {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+#new-chat:hover, #view-history:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: white;
+    transform: translateY(-1px);
+}
+
+#new-chat i, #view-history i {
+    font-size: 0.9em;
+}
+
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    background: #f8f9fa;
+}
+
+.message {
+    margin-bottom: 1rem;
+    padding: 12px 15px;
+    margin: 8px 0;
+    border-radius: 8px;
+    max-width: 80%;
+    line-height: 1.4;
+    animation: messageAppear 0.3s ease-out;
+    position: relative;
+}
+
+@keyframes messageAppear {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message.bot {
+    background-color: #f0f2f5;
+    margin-right: auto;
+}
+
+.message.user {
+    background-color: #e3f2fd;
+    margin-left: auto;
+}
+
+.message.typing::after {
+    content: '';
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    background: #007bff;
+    border-radius: 50%;
+    margin-left: 5px;
+    animation: typing 1s infinite;
+}
+
+@keyframes typing {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+.chat-input {
+    display: flex;
+    padding: 15px;
+    background: white;
+    border-top: 1px solid #e0e0e0;
+    gap: 10px;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 1em;
+}
+
+.chat-input input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.chat-input button {
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: transform 0.2s;
+}
+
+.chat-input button:hover {
+    transform: translateY(-1px);
+}
+
+.message-actions {
+    margin-top: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.message-actions button {
+    padding: 0.4rem 1rem;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+}
+
+.message-actions button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Modal styles */
+.modal-content {
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.modal-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 12px 12px 0 0;
+}
+
+.modal-body {
+    padding: 20px;
+}
+
+.list-group-item {
+    border: none;
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.5rem;
+    border-radius: 10px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.list-group-item:hover {
+    background-color: #f8f9fa;
+    transform: translateX(5px);
+}
+
+/* Responsive design */
+@media (max-width: 576px) {
+    .container {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .chat-container {
+        border-radius: 0;
+        height: 100vh;
+    }
+    
+    .message {
+        max-width: 90%;
+    }
+    
+    .chat-input {
+        padding: 0.8rem;
+    }
+    
+    .chat-input button {
+        padding: 0.8rem 1rem;
+    }
+}
+
+/* Symptom History Styles */
+.symptom-history {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.symptom-history h3 {
+    color: #2c3e50;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+
+.symptom-history ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.history-entry {
+    background-color: white;
+    border-radius: 6px;
+    padding: 12px;
+    margin-bottom: 10px;
+    border-left: 4px solid #33b5e5;
+}
+
+.history-date {
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 8px;
+}
+
+.history-symptoms, .history-prediction, .history-severity {
+    margin: 5px 0;
+    line-height: 1.4;
+}
+
+/* Severity Level Styles */
+.severity-high {
+    color: #ff4444;
+    font-weight: bold;
+}
+
+.severity-medium {
+    color: #ffbb33;
+    font-weight: bold;
+}
+
+.severity-low {
+    color: #00C851;
+    font-weight: bold;
+}
+
+/* Input Area Enhancement */
+.input-area {
+    background-color: white;
+    padding: 15px;
+    border-top: 1px solid #e0e0e0;
+    display: flex;
+    gap: 10px;
+}
+
+#symptom-input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 1em;
+}
+
+#send-btn {
+    background-color: #33b5e5;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#send-btn:hover {
+    background-color: #0099cc;
+}
+
+#days-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin: 10px 0;
+}
+
+#submit-days {
+    background-color: #33b5e5;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#submit-days:hover {
+    background-color: #0099cc;
+}
+
+/* History Button Styles */
+#view-history {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: 2px solid white;
+    transition: all 0.3s ease;
+}
+
+#view-history:hover {
+    background-color: white;
+    color: #33b5e5;
+}
+
+#view-history i {
+    font-size: 1.1em;
+} 

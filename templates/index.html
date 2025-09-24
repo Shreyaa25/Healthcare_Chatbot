@@ -1,0 +1,119 @@
+{% extends "base.html" %} {% block content %}
+<div class="container">
+  {% if not current_user.is_authenticated %}
+  <div class="row justify-content-center mb-4">
+    <div class="col-md-8 text-center">
+      <div class="alert alert-info">
+        <h4>Welcome to Healthcare ChatBot!</h4>
+        <p>
+          Please <a href="{{ url_for('login') }}">login</a> or
+          <a href="{{ url_for('register') }}">register</a> to use the chatbot
+          and save your diagnosis history.
+        </p>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="chat-container">
+    <div class="chat-header">
+      <h2>Healthcare ChatBot</h2>
+      <div class="header-buttons">
+        {% if current_user.is_authenticated %}
+        <button
+          id="new-chat"
+          class="btn btn-outline-light me-2"
+          data-bs-toggle="tooltip"
+          data-bs-placement="bottom"
+          title="Start a new chat"
+        >
+          <i class="fas fa-plus"></i> New Chat
+        </button>
+        <a
+          href="{{ url_for('profile') }}"
+          class="btn btn-outline-light"
+          data-bs-toggle="tooltip"
+          data-bs-placement="bottom"
+          title="View your consultation history"
+        >
+          <i class="fas fa-history"></i> View History
+        </a>
+        {% endif %}
+      </div>
+    </div>
+    <div class="chat-messages" id="chat-messages">
+      <div class="message bot">
+        {% if current_user.is_authenticated %} Hello {{ current_user.username
+        }}! I'm your healthcare assistant. Please tell me what symptoms you're
+        experiencing. {% else %} Hello! I'm your healthcare assistant. Please
+        login or register to start using the chatbot. {% endif %}
+      </div>
+    </div>
+    <div class="chat-input">
+      <input
+        type="text"
+        id="symptom-input"
+        placeholder="Enter your symptom..."
+        class="form-control"
+        {%
+        if
+        not
+        current_user.is_authenticated
+        %}disabled{%
+        endif
+        %}
+      />
+      <button
+        id="send-btn"
+        class="btn btn-primary"
+        {%
+        if
+        not
+        current_user.is_authenticated
+        %}disabled{%
+        endif
+        %}
+      >
+        Send
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for days input -->
+<div class="modal fade" id="daysModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Duration of Symptoms</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="days-input" class="form-label"
+            >How many days have you been experiencing these symptoms?</label
+          >
+          <input type="number" class="form-control" id="days-input" min="1" />
+        </div>
+        <button id="submit-days" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script>
+  // Initialize tooltips
+  var tooltipTriggerList = [].slice.call(
+    document.querySelectorAll('[data-bs-toggle="tooltip"]')
+  );
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+</script>
+{% endblock %}

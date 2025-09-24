@@ -1,0 +1,114 @@
+{% extends "base.html" %} {% block content %}
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card">
+        <div
+          class="card-header d-flex justify-content-between align-items-center"
+        >
+          <h5 class="mb-0">Healthcare ChatBot</h5>
+          <button id="new-chat" class="btn btn-primary btn-sm">
+            <i class="fas fa-plus"></i> New Chat
+          </button>
+        </div>
+        <div class="card-body">
+          <div id="chat-messages" class="chat-messages mb-3">
+            <!-- Messages will be added here dynamically -->
+          </div>
+          <div class="input-group">
+            <input
+              type="text"
+              id="symptom-input"
+              class="form-control"
+              placeholder="Enter your symptom..."
+            />
+            <button id="send-btn" class="btn btn-primary">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Days Modal -->
+<div
+  class="modal fade"
+  id="daysModal"
+  tabindex="-1"
+  aria-labelledby="daysModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="daysModalLabel">Duration of Symptoms</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <p>How many days have you been experiencing these symptoms?</p>
+        <input
+          type="number"
+          id="days-input"
+          class="form-control"
+          min="1"
+          max="365"
+        />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary" id="submit-days">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .chat-messages {
+    height: 400px;
+    overflow-y: auto;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 0.25rem;
+  }
+
+  .message {
+    margin-bottom: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    max-width: 80%;
+  }
+
+  .message.user {
+    background-color: #007bff;
+    color: white;
+    margin-left: auto;
+  }
+
+  .message.bot {
+    background-color: #e9ecef;
+    color: #212529;
+    margin-right: auto;
+  }
+
+  #symptom-input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  #send-btn {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+</style>
+{% endblock %}
